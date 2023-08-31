@@ -33,7 +33,7 @@ Spring boot 3.1.3 Apache Maven 3.8.2 Postman or any other REST API Testing tool
 
 To run
 
-clone https://github.com/snbiju/prime-service.git / download
+clone [https://github.com/snbiju/prime-service.git /](https://github.com/snbiju/primeNumberCheck.git) download
 
 **cd primeNumberCheck/prime**
 

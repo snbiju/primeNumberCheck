@@ -1,4 +1,4 @@
-package com.mypack.prime;
+package com.tools.prime;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;

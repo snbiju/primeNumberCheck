@@ -1,4 +1,4 @@
-package com.mypack.prime;
+package com.tools.prime;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

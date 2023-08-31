@@ -10,6 +10,7 @@ public class OperatorFactory {
         operationMap.put(null, new TraditionalPrimeNumber());
         operationMap.put("TR", new TraditionalPrimeNumber());
         operationMap.put("SE", new SieveOfEratosthenesAlgorithmPrimeNumber());
+        operationMap.put("IR",new IterativePrimeNumber());
     }
 
     public static Optional<Operation> getOperation(String operation) {

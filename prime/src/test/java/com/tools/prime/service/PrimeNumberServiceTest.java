@@ -50,7 +50,13 @@ class PrimeNumberServiceTest {
         assertNotNull(response);
         assertEquals(8, response.size());
     }
+    @Test
+    void whenWeArePassingValidPrimeNumberRangeThenReturnPrimeNumberListWithIterativeAlgorithms() throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmExceptiion {
 
+        List<Integer> response = primeService.getPrimeNumbers("20", "IR");
+        assertNotNull(response);
+        assertEquals(8, response.size());
+    }
     @Test
     void givenRageOfPrimeNumber_whenGetAllPossiblePrimeNumbers_thenReturnPrimeNumberList_From_Cache() throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmExceptiion {
         List<Integer> actual = primeService.getPrimeNumbers("10", "SE");

@@ -36,7 +36,7 @@ To get repository download
 clone https://github.com/snbiju/primeNumberCheck.git
 
 
-**cd primeNumberCheck/prime**
+cd primeNumberCheck/prime-service
 
 To run the application : mvn spring-boot:run
 

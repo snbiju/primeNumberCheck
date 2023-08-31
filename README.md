@@ -14,8 +14,7 @@ You may use any frameworks or libraries for support e.g. Spring MVC, Apache CXF 
 The project must be accessible from Github.
 
 
-
-Optional Extensions
+**Optional Extensions**
 
 Deploy the solution to a chosen platform that we can access.
 
@@ -25,7 +24,7 @@ Consider ways to improve overall performance e.g. caching results, concurrent al
 
 Consider supporting multiple algorithms that can be switched based on optional parameters
 
-**Basic requirement**
+**Application requirements**
 
 Java 11 or higher
 
@@ -42,7 +41,7 @@ To run the application : mvn spring-boot:run
 
 To run unit test and integration test  : mvn test
 
-**Addressed below Algorithms we can extend other as well**
+**Below algorithms were addressed, can be extended to others**
 
 TR - TRADITIONAL
 
@@ -60,6 +59,6 @@ Generate Prime Numbers with the given range with SE (GET REQUEST)
 http://localhost:8088/primes/10/SE (GET REQUEST)
 
 * This API will support both XML and JSON Format response
-*  Support Multiple Algorithms
+* Support Multiple Algorithms
 * Enabled Caffeine Cache
 

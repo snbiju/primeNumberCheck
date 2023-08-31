@@ -47,6 +47,8 @@ TR - TRADITIONAL
 
 SE - SIEVE OF ERATOSTENES 
 
+IR - ITERATIVE 
+
 Generate Prime Numbers with the given range (GET REQUEST) 
 http://localhost:8088/primes/10(GET REQUEST)
 

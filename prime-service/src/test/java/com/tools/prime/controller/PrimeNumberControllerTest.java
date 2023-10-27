@@ -13,9 +13,11 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 class PrimeNumberControllerTest extends PrimeApplicationTests {
@@ -33,7 +35,7 @@ class PrimeNumberControllerTest extends PrimeApplicationTests {
 
     @Test
     void whenWeArePassingValidPrimeNumberRangeThenReturnPrimeNumberListAsJsonWithNoAlgorithms() throws Exception {
-        String json = "{\"Initial\":\"10\",\"Primes\":[2,3,5,7]}";
+        String json ="{\"Initial\":10,\"Primes\":[2,3,5,7]}";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
         int status = mvcResult.getResponse().getStatus();
@@ -45,7 +47,7 @@ class PrimeNumberControllerTest extends PrimeApplicationTests {
     }
     @Test
     void whenWeArePassingValidPrimeNumberRangeThenReturnPrimeNumberListAsJsonWithTraditionalAlgorithms() throws Exception {
-        String json = "{\"Initial\":\"10\",\"Primes\":[2,3,5,7]}";
+        String json ="{\"Initial\":10,\"Primes\":[2,3,5,7]}";
         String uri = "/primes/10/TR";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
@@ -58,7 +60,7 @@ class PrimeNumberControllerTest extends PrimeApplicationTests {
     }
     @Test
     void whenWeArePassingValidPrimeNumberRangeThenReturnPrimeNumberListAsJsonWithSieveOfEratosthenesAlgorithms() throws Exception {
-        String json = "{\"Initial\":\"10\",\"Primes\":[2,3,5,7]}";
+        String json = "{\"Initial\":10,\"Primes\":[2,3,5,7]}";
         String uri = "/primes/10/SE";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
@@ -71,7 +73,7 @@ class PrimeNumberControllerTest extends PrimeApplicationTests {
     }
     @Test
     void whenWeArePassingValidPrimeNumberRangeThenReturnPrimeNumberListAsJsonWithIterative() throws Exception {
-        String json = "{\"Initial\":\"10\",\"Primes\":[2,3,5,7]}";
+        String json = "{\"Initial\":10,\"Primes\":[2,3,5,7]}";
         String uri = "/primes/10/IR";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
@@ -159,6 +161,29 @@ class PrimeNumberControllerTest extends PrimeApplicationTests {
         assertEquals(404, status);
         String content = mvcResult.getResponse().getContentAsString();
 
-        assertTrue(content.contains("Algorithm is not match"));
+        assertTrue(content.contains("Algorithm does not match"));
+    }
+
+    @Test
+     void whenWeArePassingNegativeNumberThenReturnInvalidRange() throws Exception {
+        String uri="/primes/-1/TR";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(404, status);
+        String content = mvcResult.getResponse().getContentAsString();
+        assertTrue(content.contains("Invalid Range: Please enter valid range"));
+
+    }
+    @Test
+    void whenWeArePassingStringAsNumberThenReturnInvalidRange() throws Exception {
+        String uri="/primes/String/TR";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(404, status);
+        String content = mvcResult.getResponse().getContentAsString();
+        assertTrue(content.contains("Input only allows numerical values."));
+
     }
 }

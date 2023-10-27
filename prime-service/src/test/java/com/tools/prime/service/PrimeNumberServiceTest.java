@@ -1,7 +1,7 @@
 package com.tools.prime.service;
 
 import com.github.benmanes.caffeine.cache.Cache;
-import com.tools.prime.exception.NotMatchingAlgorithmExceptiion;
+import com.tools.prime.exception.NotMatchingAlgorithmException;
 import com.tools.prime.exception.InvalidPrimeNumberRangeException;
 import com.tools.prime.model.PrimeNumberData;
 import org.junit.jupiter.api.DisplayName;
@@ -28,41 +28,41 @@ class PrimeNumberServiceTest {
 
     @DisplayName("Unit test for getPrimeNumber method")
     @Test
-    void whenWeArePassingValidPrimeNumberRangeThenReturnPrimeNumberListWithNoAlgorithms() throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmExceptiion {
+    void whenWeArePassingValidPrimeNumberRangeThenReturnPrimeNumberListWithNoAlgorithms() throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmException {
 
-        List<Integer> response = primeService.getPrimeNumbers("10", null);
+        List<Integer> response = primeService.getPrimeNumbers(10, null);
         assertNotNull(response);
         assertEquals(4, response.size());
     }
 
     @Test
-    void whenWeArePassingValidPrimeNumberRangeThenReturnPrimeNumberListWithTraditionalAlgorithms() throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmExceptiion {
+    void whenWeArePassingValidPrimeNumberRangeThenReturnPrimeNumberListWithTraditionalAlgorithms() throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmException {
 
-        List<Integer> response = primeService.getPrimeNumbers("20", "TR");
+        List<Integer> response = primeService.getPrimeNumbers(20, "TR");
         assertNotNull(response);
         assertEquals(8, response.size());
     }
 
     @Test
-    void whenWeArePassingValidPrimeNumberRangeThenReturnPrimeNumberListWithSieveOfEratosthenesAlgorithms() throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmExceptiion {
+    void whenWeArePassingValidPrimeNumberRangeThenReturnPrimeNumberListWithSieveOfEratosthenesAlgorithms() throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmException {
 
-        List<Integer> response = primeService.getPrimeNumbers("20", "SE");
+        List<Integer> response = primeService.getPrimeNumbers(20, "SE");
         assertNotNull(response);
         assertEquals(8, response.size());
     }
     @Test
-    void whenWeArePassingValidPrimeNumberRangeThenReturnPrimeNumberListWithIterativeAlgorithms() throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmExceptiion {
+    void whenWeArePassingValidPrimeNumberRangeThenReturnPrimeNumberListWithIterativeAlgorithms() throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmException {
 
-        List<Integer> response = primeService.getPrimeNumbers("20", "IR");
+        List<Integer> response = primeService.getPrimeNumbers(20, "IR");
         assertNotNull(response);
         assertEquals(8, response.size());
     }
     @Test
-    void givenRageOfPrimeNumber_whenGetAllPossiblePrimeNumbers_thenReturnPrimeNumberList_From_Cache() throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmExceptiion {
-        List<Integer> actual = primeService.getPrimeNumbers("10", "SE");
+    void givenRageOfPrimeNumber_whenGetAllPossiblePrimeNumbers_thenReturnPrimeNumberList_From_Cache() throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmException {
+        List<Integer> actual = primeService.getPrimeNumbers(10, "SE");
         assertNotNull(actual);
         assertEquals(4, actual.size());
-        assertTimeout(Duration.ofMillis(2l), () -> primeService.getPrimeNumbers("10", "SE"));
+        assertTimeout(Duration.ofMillis(2l), () -> primeService.getPrimeNumbers(10, "SE"));
     }
 
 }

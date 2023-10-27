@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
  * The isPrime check: O(1)
  * The overall time complexity is the product of the time complexities of each step, which is O(n * sqrt(n)).
  */
-public class IterativePrimeNumber implements Operation {
+public class IterativePrimeNumber implements AlgorithmHandler {
 
     public List<Integer> computePrimeNumbers(Integer range) {
 

@@ -3,7 +3,7 @@ package com.tools.prime.process;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SieveOfEratosthenesAlgorithmPrimeNumber implements Operation {
+public class SieveOfEratosthenesAlgorithmPrimeNumber implements AlgorithmHandler {
 
     /**
      * The time complexity of the getPrimeSieveOfEratosthenes() method is O(n * log log n).

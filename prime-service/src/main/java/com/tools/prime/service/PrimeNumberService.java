@@ -2,9 +2,9 @@ package com.tools.prime.service;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.tools.prime.exception.InvalidPrimeNumberRangeException;
-import com.tools.prime.exception.NotMatchingAlgorithmExceptiion;
-import com.tools.prime.process.Operation;
-import com.tools.prime.process.OperatorFactory;
+import com.tools.prime.exception.NotMatchingAlgorithmException;
+import com.tools.prime.process.AlgorithmHandler;
+import com.tools.prime.process.AlgorithmDecisionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,31 +26,45 @@ public class PrimeNumberService {
         this.cache = cache;
     }
 
-    public List<Integer> getPrimeNumbers(String range, String algo) throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmExceptiion {
+    public List<Integer> getPrimeNumbers(int range, String algo) throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmException {
 
-        return generatePrimeNumbers(Integer.valueOf(range), algo);
+        return generatePrimeNumbers(range, algo);
     }
 
-    private List<Integer> generatePrimeNumbers(int range, String algorithms) throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmExceptiion {
-        if (range < 1) throw new InvalidPrimeNumberRangeException("Invalid Range: Please enter valid range");
-        List<Integer> primeList = null;
-        if (algorithms == null) {
+    private List<Integer> generatePrimeNumbers(int range, String algorithm) throws InvalidPrimeNumberRangeException, NotMatchingAlgorithmException {
+        if (range < 1) {
+            throw new InvalidPrimeNumberRangeException("Invalid Range: Please enter a valid range");
+        }
+
+        List<Integer> primeList = retrieveFromCache(range, algorithm);
+
+        if (primeList == null && isValidAlgorithm(algorithm)) {
+            final AlgorithmHandler algorithmHandler = AlgorithmDecisionFactory.getOperation(algorithm).get();
+            primeList = algorithmHandler.apply(range);
+            cache.put(algorithm + range, primeList);
+        }
+
+        return primeList;
+    }
+
+    private List<Integer> retrieveFromCache(int range, String algorithm) {
+        if (algorithm == null) {
             String cacheKey = "TR" + range;
-            primeList = cache.getIfPresent(cacheKey);
-        } else if (!OperatorFactory.getOperation(algorithms).isPresent()) {
-            LOGGER.info("Algorithm {} is not match", algorithms);
-            throw new NotMatchingAlgorithmExceptiion("Algorithm is not match");
+            return cache.getIfPresent(cacheKey);
         } else {
-            primeList = cache.getIfPresent(algorithms + range);
+            return cache.getIfPresent(algorithm + range);
         }
-        if ((primeList == null || primeList.isEmpty()) && OperatorFactory.getOperation(algorithms).isPresent()) {
-            final Operation operation = OperatorFactory.getOperation(algorithms).get();
-            if (operation != null) {
-                primeList = OperatorFactory.getOperation(algorithms).get().apply(range);
-                cache.put(algorithms + range, primeList);
-            }
-        }
-
-     return primeList;
     }
+
+    private boolean isValidAlgorithm(String algorithm) throws NotMatchingAlgorithmException {
+        if (algorithm == null) {
+            return true; // No specific algorithm, proceed with default
+        } else if (!AlgorithmDecisionFactory.getOperation(algorithm).isPresent()) {
+            LOGGER.info("Algorithm {} does not a match", algorithm);
+            throw new NotMatchingAlgorithmException("Algorithm does not match.");
+        } else {
+            return true; // Algorithm is valid
+        }
+    }
+
 }

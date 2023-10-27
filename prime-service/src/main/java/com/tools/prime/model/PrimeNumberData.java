@@ -1,6 +1,7 @@
 package com.tools.prime.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.List;
@@ -10,8 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class PrimeNumberData {
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     @JsonProperty("Initial")
-    String initial;
+    int initial;
     @JsonProperty("Primes")
     List<Integer> primes;
 }

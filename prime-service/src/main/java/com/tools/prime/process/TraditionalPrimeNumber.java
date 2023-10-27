@@ -3,7 +3,7 @@ package com.tools.prime.process;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TraditionalPrimeNumber implements Operation {
+public class TraditionalPrimeNumber implements AlgorithmHandler {
 
     /**
      * The outer for loop iterates from 2 to range, which takes O(n) time. The inner for loop iterates from 2 to the square root of i, which takes O(sqrt(n)) time. The total time complexity is O(n * sqrt(n)).

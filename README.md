@@ -43,6 +43,9 @@ To run unit test and integration test  : mvn test
 
 **Below algorithms were addressed, can be extended to others**
 
+SWAGGER URL :- 
+http://localhost:8080/swagger-ui/index.html
+
 TR - TRADITIONAL
 
 SE - SIEVE OF ERATOSTENES 

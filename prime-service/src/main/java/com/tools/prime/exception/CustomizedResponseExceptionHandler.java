@@ -38,14 +38,6 @@ public class CustomizedResponseExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
-        List<String> details = new ArrayList<>();
-        details.add(ex.getLocalizedMessage());
-        ErrorResponse error = new ErrorResponse(LocalDateTime.now(), RESOURCE_NOT_FOUND, details);
-        return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
-    }
-
     @ExceptionHandler(value = NumberFormatException.class)
     @ResponseBody
     public ResponseEntity<ErrorResponse> handleResourceNumberFormatException(NumberFormatException ex, WebRequest request) {
